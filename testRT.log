@@ -1,0 +1,169 @@
+Current configuration : 1637 bytes
+!
+! Last configuration change at hh:mm:ss UTC aaa mm dd yyyy
+!
+version xx.x
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname testRT
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+memory-size iomem 10
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+license udi pid C891FJ-K9 sn FGLxxxxxxxx
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface BRI0
+ no ip address
+ encapsulation hdlc
+ shutdown
+ isdn termination multidrop
+!
+interface FastEthernet0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0
+ no ip address
+!
+interface GigabitEthernet1
+ no ip address
+!
+interface GigabitEthernet2
+ no ip address
+!
+interface GigabitEthernet3
+ no ip address
+!
+interface GigabitEthernet4
+ no ip address
+!
+interface GigabitEthernet5
+ no ip address
+!
+interface GigabitEthernet6
+ no ip address
+!
+interface GigabitEthernet7
+ no ip address
+!
+interface GigabitEthernet8
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+interface Async3
+ no ip address
+ encapsulation slip
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+ipv6 ioam timestamp
+!
+!
+control-plane
+!
+!
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+line con 0
+ no modem enable
+line aux 0
+line 3
+ speed 115200
+line vty 0 4
+ login
+ transport input none
+!
+scheduler allocate 20000 1000
+!
+!
+!
+!
+!
+!
+!
+end
