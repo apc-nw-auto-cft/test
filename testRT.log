@@ -1,4 +1,4 @@
-Current configuration : 2463 bytes
+Current configuration : 2335 bytes
 !
 ! Last configuration change at hh:mm:ss UTC aaa mm dd yyyy
 !
@@ -63,6 +63,7 @@ multilink bundle-name authenticated
 license udi pid C891FJ-K9 sn FGLxxxxxxxx
 !
 !
+vtp mode transparent
 username admin password 7 045304010A27594908
 !
 redundancy
@@ -70,6 +71,7 @@ redundancy
 !
 !
 !
+vlan 2000,3000
 no cdp run
 !
 !
