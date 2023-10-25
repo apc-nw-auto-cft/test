@@ -1,4 +1,4 @@
-Current configuration : 1637 bytes
+Current configuration : 2463 bytes
 !
 ! Last configuration change at hh:mm:ss UTC aaa mm dd yyyy
 !
@@ -13,9 +13,12 @@ boot-start-marker
 boot-end-marker
 !
 !
+logging buffered 512000
+enable password hogefuga
 !
 no aaa new-model
 memory-size iomem 10
+clock timezone JST 9 0
 !
 !
 !
@@ -39,6 +42,8 @@ memory-size iomem 10
 !
 !
 !
+no ip domain lookup
+ip domain name cisco.com
 ip cef
 no ipv6 cef
 !
@@ -57,6 +62,7 @@ multilink bundle-name authenticated
 license udi pid C891FJ-K9 sn FGLxxxxxxxx
 !
 !
+username admin password 0 hogefuga
 !
 redundancy
 !
@@ -89,14 +95,18 @@ interface FastEthernet0
 !
 interface GigabitEthernet0
  no ip address
+ shutdown
 !
 interface GigabitEthernet1
  no ip address
+ shutdown
 !
 interface GigabitEthernet2
+ switchport access vlan 20
  no ip address
 !
 interface GigabitEthernet3
+ switchport access vlan 30
  no ip address
 !
 interface GigabitEthernet4
@@ -120,6 +130,12 @@ interface GigabitEthernet8
 interface Vlan1
  no ip address
 !
+interface Vlan20
+ ip address 192.0.2.1 255.255.255.0
+!
+interface Vlan30
+ ip address 198.51.100.1 255.255.255.0
+!
 interface Async3
  no ip address
  encapsulation slip
@@ -129,6 +145,8 @@ no ip http server
 no ip http secure-server
 !
 !
+ip route 0.0.0.0 0.0.0.0 198.51.100.254
+ip ssh version 2
 !
 ipv6 ioam timestamp
 !
@@ -150,15 +168,20 @@ mgcp profile default
 !
 !
 line con 0
+ password hogefuga
+ logging synchronous
+ login
  no modem enable
 line aux 0
 line 3
  speed 115200
 line vty 0 4
- login
- transport input none
+ logging synchronous
+ login local
+ transport input all
 !
 scheduler allocate 20000 1000
+ntp server 203.0.113.1
 !
 !
 !
