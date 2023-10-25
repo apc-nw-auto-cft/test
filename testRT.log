@@ -3,9 +3,10 @@ Current configuration : 2463 bytes
 ! Last configuration change at hh:mm:ss UTC aaa mm dd yyyy
 !
 version xx.x
+no service pad
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 !
 hostname testRT
 !
@@ -14,7 +15,7 @@ boot-end-marker
 !
 !
 logging buffered 512000
-enable password hogefuga
+enable password 7 1046061E0011070C0D
 !
 no aaa new-model
 memory-size iomem 10
@@ -62,13 +63,14 @@ multilink bundle-name authenticated
 license udi pid C891FJ-K9 sn FGLxxxxxxxx
 !
 !
-username admin password 0 hogefuga
+username admin password 7 045304010A27594908
 !
 redundancy
 !
 !
 !
 !
+no cdp run
 !
 !
 !
@@ -102,11 +104,13 @@ interface GigabitEthernet1
  shutdown
 !
 interface GigabitEthernet2
- switchport access vlan 20
+ description ### MGMT ###
+ switchport access vlan 2000
  no ip address
 !
 interface GigabitEthernet3
- switchport access vlan 30
+ description ### WAN ###
+ switchport access vlan 3000
  no ip address
 !
 interface GigabitEthernet4
@@ -130,10 +134,12 @@ interface GigabitEthernet8
 interface Vlan1
  no ip address
 !
-interface Vlan20
+interface Vlan2000
+ description ### MGMT ###
  ip address 192.0.2.1 255.255.255.0
 !
-interface Vlan30
+interface Vlan3000
+ description ### WAN ###
  ip address 198.51.100.1 255.255.255.0
 !
 interface Async3
@@ -168,7 +174,7 @@ mgcp profile default
 !
 !
 line con 0
- password hogefuga
+ password 7 030C540C0309344B4F
  logging synchronous
  login
  no modem enable
@@ -178,7 +184,7 @@ line 3
 line vty 0 4
  logging synchronous
  login local
- transport input all
+ transport input ssh
 !
 scheduler allocate 20000 1000
 ntp server 203.0.113.1
