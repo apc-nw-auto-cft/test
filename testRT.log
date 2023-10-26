@@ -1,11 +1,12 @@
-Current configuration : 1637 bytes
+Current configuration : 2335 bytes
 !
 ! Last configuration change at hh:mm:ss UTC aaa mm dd yyyy
 !
 version xx.x
+no service pad
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 !
 hostname testRT
 !
@@ -13,9 +14,12 @@ boot-start-marker
 boot-end-marker
 !
 !
+logging buffered 512000
+enable password 7 1046061E0011070C0D
 !
 no aaa new-model
 memory-size iomem 10
+clock timezone JST 9 0
 !
 !
 !
@@ -39,6 +43,8 @@ memory-size iomem 10
 !
 !
 !
+no ip domain lookup
+ip domain name cisco.com
 ip cef
 no ipv6 cef
 !
@@ -57,12 +63,16 @@ multilink bundle-name authenticated
 license udi pid C891FJ-K9 sn FGLxxxxxxxx
 !
 !
+vtp mode transparent
+username admin password 7 045304010A27594908
 !
 redundancy
 !
 !
 !
 !
+vlan 2000,3000
+no cdp run
 !
 !
 !
@@ -89,14 +99,20 @@ interface FastEthernet0
 !
 interface GigabitEthernet0
  no ip address
+ shutdown
 !
 interface GigabitEthernet1
  no ip address
+ shutdown
 !
 interface GigabitEthernet2
+ description ### MGMT ###
+ switchport access vlan 2000
  no ip address
 !
 interface GigabitEthernet3
+ description ### WAN ###
+ switchport access vlan 3000
  no ip address
 !
 interface GigabitEthernet4
@@ -120,6 +136,14 @@ interface GigabitEthernet8
 interface Vlan1
  no ip address
 !
+interface Vlan2000
+ description ### MGMT ###
+ ip address 192.0.2.1 255.255.255.0
+!
+interface Vlan3000
+ description ### WAN ###
+ ip address 198.51.100.1 255.255.255.0
+!
 interface Async3
  no ip address
  encapsulation slip
@@ -129,6 +153,8 @@ no ip http server
 no ip http secure-server
 !
 !
+ip route 0.0.0.0 0.0.0.0 198.51.100.254
+ip ssh version 2
 !
 ipv6 ioam timestamp
 !
@@ -150,15 +176,20 @@ mgcp profile default
 !
 !
 line con 0
+ password 7 030C540C0309344B4F
+ logging synchronous
+ login
  no modem enable
 line aux 0
 line 3
  speed 115200
 line vty 0 4
- login
- transport input none
+ logging synchronous
+ login local
+ transport input ssh
 !
 scheduler allocate 20000 1000
+ntp server 203.0.113.1
 !
 !
 !
